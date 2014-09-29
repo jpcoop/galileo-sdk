@@ -7,10 +7,12 @@
 
 void LogLastError()
 {
-    CHAR *msg;
+    CHAR *msg = nullptr;
     DWORD errCode = GetLastError();
-    FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, errCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&msg, 0, NULL);
-    Log(msg);
+    if(FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS, NULL, errCode, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR)&msg, 0, NULL))
+    {
+        Log(msg);
+    }
 }
 
 HardwareSerial::HardwareSerial(const std::wstring &comPort)
